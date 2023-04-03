@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import './index.scss';
 
-import { UserProvider } from './context/user.context';
-import { ProductProvider } from './context/product.context';
-import { CartProvider } from './context/cart.context';
+import { UserProvider } from './contexts/user.context';
+import { ProductProvider } from './contexts/product.context';
+import { CartProvider } from './contexts/cart.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
