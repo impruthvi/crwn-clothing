@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { UserContext } from '../../context/user.context';
+import { UserContext } from '../../contexts/user.context';
 import {
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
