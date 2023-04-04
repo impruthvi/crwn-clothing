@@ -17,7 +17,7 @@ export const CategoriesProvider = ({ children }) => {
       setCategoriesMap(categoriesMap);
     }
     getCategoriesmap()
-  })
+  },[])
 
   const value = { categoriesMap }
   return (
