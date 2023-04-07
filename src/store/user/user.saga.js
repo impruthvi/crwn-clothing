@@ -1,8 +1,14 @@
 import { takeLatest, call, all, put } from 'redux-saga/effects';
 import { USER_ACTION_TYPE } from './user.types';
 
-import { signInSuccess, signInFailed } from './user.action';
 import {
+  signInSuccess,
+  signInFailed,
+  signUpFailed,
+  signUpSuccess,
+} from './user.action';
+import {
+  createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   getCurrentUser,
   signInAuthWithEmailAndPassword,
@@ -54,6 +60,30 @@ export function* isUserAuthenticated() {
   }
 }
 
+export function* signUp({ payload: { email, password, displayName } }) {
+  try {
+    const { user } = yield call(
+      createAuthUserWithEmailAndPassword,
+      email,
+      password
+    );
+
+    yield put(signUpSuccess(user, { displayName }));
+  } catch (error) {
+    yield put(signUpFailed(error));
+  }
+}
+
+export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
+  try {
+    yield call(getSnapshotFromUserAuth, user, additionalDetails);
+
+    yield put(signUpSuccess({ user }));
+  } catch (error) {
+    yield put(signUpFailed(error));
+  }
+}
+
 export function* onGoogleSignInStart() {
   yield takeLatest(USER_ACTION_TYPE.GOOGLE_SIGN_IS_START, signInWithGoogle);
 }
@@ -65,10 +95,19 @@ export function* onCheckUserSession() {
   yield takeLatest(USER_ACTION_TYPE.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
+export function* onSignUpStart() {
+  yield takeLatest(USER_ACTION_TYPE.SIGN_UP_START, signUp);
+}
+export function* onSignUpSuccess() {
+  yield takeLatest(USER_ACTION_TYPE.SIGN_UP_SUCCESS, signInAfterSignUp);
+}
+
 export function* userSagas() {
   yield all([
     call(onCheckUserSession),
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
+    call(onSignUpStart),
+    call(onSignUpSuccess),
   ]);
 }
