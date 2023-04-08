@@ -36,7 +36,9 @@ export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
     const { user } = yield call(
-      signInAuthWithEmailAndPassword(email, password)
+      signInAuthWithEmailAndPassword,
+      email,
+      password
     );
     yield call(getSnapshotFromUserAuth, user);
   } catch (error) {
@@ -89,8 +91,6 @@ export function* signOut() {
 export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
   try {
     yield call(getSnapshotFromUserAuth, user, additionalDetails);
-
-    yield put(signUpSuccess({ user }));
   } catch (error) {
     yield put(signUpFailed(error));
   }
@@ -100,7 +100,7 @@ export function* onGoogleSignInStart() {
   yield takeLatest(USER_ACTION_TYPE.GOOGLE_SIGN_IS_START, signInWithGoogle);
 }
 export function* onEmailSignInStart() {
-  yield takeLatest(USER_ACTION_TYPE.EMAIL_SIGN_IN_START, signInWithGoogle);
+  yield takeLatest(USER_ACTION_TYPE.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
 export function* onCheckUserSession() {

@@ -21,7 +21,7 @@ export const signUpStart = (email, password, displayName) =>
     password,
     displayName,
   });
-export const signUpSuccess = ({ user, additionalDetails }) =>
+export const signUpSuccess = (user, additionalDetails) =>
   createAction(USER_ACTION_TYPE.SIGN_UP_SUCCESS, { user, additionalDetails });
 export const signUpFailed = (error) =>
   createAction(USER_ACTION_TYPE.SIGN_UP_FAILED, error);
