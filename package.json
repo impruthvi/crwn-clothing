@@ -12,6 +12,7 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
     "dotenv": "^16.0.3",
     "env-cmd": "^10.1.0",
     "firebase": "^9.18.0",
