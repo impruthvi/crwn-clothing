@@ -5,7 +5,7 @@ export const BackgroundImage = styled.div`
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`}; 
 `;
 
 export const Body = styled.div`
@@ -36,7 +36,7 @@ export const Body = styled.div`
 
 export const DirectoryItemContainer = styled.div`
   min-width: 30%;
-  height: 240px;
+  height: ${({size}) => (size ? '380px' : '240px')};
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -64,5 +64,9 @@ export const DirectoryItemContainer = styled.div`
     ${Body} {
       opacity: 0.9;
     }
+  }
+
+  @media screen and (max-width: 800px) {
+    height: 200px;
   }
 `;

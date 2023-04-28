@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 
 import { checkUserSession } from './store/user/user.action';
 import { useDispatch } from 'react-redux';
+import { GlobalStyle } from './global.styled';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,14 +18,17 @@ const App = () => {
   }, []);
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigation />}>
-        <Route index element={<Home />} />
-        <Route path="shop/*" element={<Shop />} />
-        <Route path="auth" element={<Authentication />} />
-        <Route path="checkout" element={<Checkout />} />
-      </Route>
-    </Routes>
+    <>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<Navigation />}>
+          <Route index element={<Home />} />
+          <Route path="shop/*" element={<Shop />} />
+          <Route path="auth" element={<Authentication />} />
+          <Route path="checkout" element={<Checkout />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 
